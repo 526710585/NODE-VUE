@@ -30,6 +30,8 @@ module.exports = {
 
   // 那么将这个值改为 '/my-app/'
 
+  lintOnSave: true,
+
   publicPath: "./", //根域上下文目录  './'这样所有的资源都会被链接为相对路径
 
   outputDir: "./build", //build时构建文件的目录 构建时传入 --no-clean 可关闭该行为
@@ -74,7 +76,7 @@ module.exports = {
 
     host: "0.0.0.0",
 
-    port: 80,
+    port: 8080,
 
     https: false,
 

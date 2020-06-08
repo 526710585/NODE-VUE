@@ -1,8 +1,12 @@
 import Vue from 'vue'
-import './plugins/axios'
 import App from './App.vue'
 import './plugins/element.js'
 import router from './router'
+import {
+  post
+} from './comm/http.js'
+
+// Vue.propotype.$post = post;
 
 Vue.config.productionTip = false
 
