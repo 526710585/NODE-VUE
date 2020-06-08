@@ -1,7 +1,7 @@
 import axios from "axios";
 
-axios.defaults.timeout = 50000;
-axios.defaults.withCredentials = true;
+// axios.defaults.timeout = 50000;
+// axios.defaults.withCredentials = true;
 
 
 //http request 拦截器
@@ -53,7 +53,7 @@ export function post(url, data = {}) {
   return new Promise((resolve, reject) => {
     axios({
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       },
       method: 'post',
       url: url,

@@ -13,6 +13,7 @@
   </div>
 </template>
 <script>
+import { categoryUrl } from "../comm/config";
 export default {
   data() {
     return {
@@ -20,9 +21,14 @@ export default {
     };
   },
   methods: {
-    save(){
-      
+    async save() {
+      var res = await this.$post(categoryUrl, this.model);
+      this.$router.push("/categories/list");
+      this.$message({
+        type: "success",
+        message: "保存成功"
+      });
     }
-  },
+  }
 };
 </script>
