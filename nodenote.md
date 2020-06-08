@@ -13,8 +13,6 @@ const express = require('express')
 const router = express.Router()
 ```
 
-
-
 ## 2.链接数据库
 
 ```js
