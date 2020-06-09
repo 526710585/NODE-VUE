@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Main from '../views/Main.vue'
 import CategoryEdit from '../views/CategoryEdit.vue'
+const CategoryList = () => import('../views/CategoryList.vue')
 
 Vue.use(VueRouter)
 
@@ -13,7 +14,12 @@ const routes = [{
   children: [{
     path: '/categories/create',
     component: CategoryEdit
-  }]
+  },
+  {
+    path: '/categories/list',
+    component: CategoryList
+  },
+]
 }]
 
 const router = new VueRouter({
