@@ -12,7 +12,7 @@ module.exports = app => {
     res.send(model)
   })
   router.get('/categories', async (req, res) => {
-    //populate 关联查询: 不仅仅是要parent这个参数的id 而是要查出整个数据作为一个对象
+    //populate 关联查询:不仅仅是要parent这个参数的id 而是要查出整个数据作为一个对象
     const model = await Category.find().populate('parent')
     res.send(model)
   })
@@ -28,12 +28,11 @@ module.exports = app => {
     })
   })
   router.put('/categories/:id', async (req, res) => {
-    console.log(req.params.id);
-    // const model = await Category.findByIdAndDelete(req.params.id)
-    console.log(req.body);
-    const model = await Category.findById(req.params.id)
-    model.name = req.body.name;
-    await model.save()
+    // const model = await Category.findById(req.params.id)
+    // model.name = req.body.name;
+    // model.parent = req.body.parent;
+    // await model.save();
+    const model = await Category.findByIdAndUpdate(req.params.id, req.body) //一句话代替上面的所有代码
     res.send({
       result: 0
     })
