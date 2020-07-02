@@ -8,10 +8,35 @@ module.exports = app => {
   console.log(Category);
   router.post('/categories', async (req, res) => {
     const model = await Category.create(req.body)
+    console.log('req.body', req.body);
     res.send(model)
   })
   router.get('/categories', async (req, res) => {
-    res.send('hello')
+    //populate 关联查询: 不仅仅是要parent这个参数的id 而是要查出整个数据作为一个对象
+    const model = await Category.find().populate('parent')
+    res.send(model)
+  })
+  router.get('/categories/:id', async (req, res) => {
+    const model = await Category.findById(req.params.id)
+    res.send(model)
+  })
+  router.delete('/categories/:id', async (req, res) => {
+    console.log(req.params.id);
+    const model = await Category.findByIdAndDelete(req.params.id)
+    res.send({
+      result: 0
+    })
+  })
+  router.put('/categories/:id', async (req, res) => {
+    console.log(req.params.id);
+    // const model = await Category.findByIdAndDelete(req.params.id)
+    console.log(req.body);
+    const model = await Category.findById(req.params.id)
+    model.name = req.body.name;
+    await model.save()
+    res.send({
+      result: 0
+    })
   })
   app.use('/admin/api', router)
 }
