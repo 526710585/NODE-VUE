@@ -68,3 +68,45 @@ export function post(url, data = {}) {
     );
   });
 }
+
+export function get(url, data = {}) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'get',
+      url,
+      data
+    }).then(res => {
+      resolve(res)
+    }).catch(err => {
+      reject(err);
+    })
+  })
+}
+
+export function put(url, data = {}) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'put',
+      url,
+      data
+    }).then(res => {
+      resolve(res.data)
+    }).catch(err => {
+      reject(err);
+    })
+  })
+}
+
+export function deleteFun(url, data = {}) {
+  return new Promise((resolve, reject) => {
+    axios({
+      method: 'delete',
+      url,
+      data
+    }).then(res => {
+      resolve(res.data)
+    }).catch(err => {
+      reject(err);
+    })
+  })
+}
