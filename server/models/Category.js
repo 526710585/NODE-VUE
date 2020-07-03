@@ -7,7 +7,7 @@ const schma = new mongoose.Schema({
   parent: {
     //这个属性的type: Onjectid代表mongooDB数据库中的id 是一个特殊类型
     type: mongoose.SchemaTypes.ObjectId,
-    //这个属性 关联的哪一个模型 
+    //ref代表填充的时候 ,mongoose应该使用哪个model(模型) 
     ref: 'Category'
   }
 })

@@ -15,7 +15,10 @@ module.exports = app => {
         res.send({result:0})
     })
     router.get('/categories', async (req, res) => {
-        let category = await Category.find().limit(10)
+        let category = await Category.find().populate({
+            path:'parent',
+            select:'name -_id'
+        }).limit(10)
         res.send(category)
     })
     router.get('/categories/:id', async (req, res) => {

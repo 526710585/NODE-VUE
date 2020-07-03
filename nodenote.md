@@ -82,3 +82,64 @@ await one.remove()
 
 ```
 
+
+
+## 6.数据库结构定义
+
+定义 mongoose.SchemaTypes.ObjectId 代表type为mongooDB中_id的数据类型
+
+ref 代表填充的时候 ,mongoose应该使用哪个model(模型) 
+
+```js
+const schema = new mongoose.Schema({
+    name:String,
+    parent:{
+        //
+        type:mongoose.SchemaTypes.ObjectId,
+        ref:'Category'
+    }
+})
+```
+
+
+
+## 7.populate的作用
+
+填充查询 : 在一个文档中引用另一个集合中的文档,并将其填充到指定文档路径
+
+填入要填充(替换)的属性,需要配合结构定义中的type属性和ref属性去做
+
+
+
+1.字段选择
+
+如果只想要填充的文档的某些字段 可以使用
+
+```js
+populate('parent','name')//在填充parent时,仅返回name字段
+```
+
+2.填充多个路径
+
+```js
+let category = await 
+Category.find().
+populate('parent').
+populate('child')
+```
+
+3.查询条件 
+
+替换parant属性,要求age为21以上,只返回name属性,并且数量小于5
+
+```js
+let category = await 
+Category.find().
+populate({
+	path:'parent',
+	match: {age:{$gte:21}},
+	select:'name -_id',//select属性 -_id选项就不会附带_id
+	options:{limit:5}
+})
+```
+
