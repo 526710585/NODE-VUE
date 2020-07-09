@@ -6,6 +6,8 @@ const app = express()
 app.use(require('cors')())
 //解析json数据
 app.use(express.json())
+//静态文件的处理
+app.use('/uploads',express.static(__dirname+'/uploads'))
 
 
 //直接引入了路由中的函数，并且调用它，并且传入app

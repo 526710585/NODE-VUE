@@ -33,7 +33,6 @@ module.exports = app => {
   })
 
   router.delete('/:id', async (req, res) => {
-    console.log(req.params.id);
     const model = await req.Model.findByIdAndDelete(req.params.id)
     res.send({
       result: 0
@@ -53,8 +52,18 @@ module.exports = app => {
 
   app.use('/admin/api/rest/:resource', (req, res, next) => {
     const modelName = inflection.classify(req.params.resource) //使用inflection转换名称
+    console.log(`../../models/${modelName}`);
     const Model = require(`../../models/${modelName}`)
+    console.log('Model',Model);
     req.Model = Model;
     next();
   }, router)
+
+  const multer = require('multer')//引入处理上传文件的插件
+  const upload = multer({dest:__dirname+'/../../uploads'})//这个中间件使用multer处理 上传后的路径
+  app.use('/admin/api/upload',upload.single('file')/**single 代表单文件 */,async (req,res)=>{
+    const file = req.file
+    file.url = `http://localhost:3001/uploads/${file.filename}`
+    res.send(file)
+  })
 }

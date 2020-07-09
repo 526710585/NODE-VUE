@@ -143,3 +143,35 @@ populate({
 })
 ```
 
+
+
+## 8.CRUD接口
+
+通用的CRUD接口,是为了满足只修改Model情况下 其余都相同的增删改查接口,我们利用inflection插件转换大小写,根据接口请求的参数不同,去不同的model中 操作(增删改查)数据
+
+1.利用app.use匹配一个params可修改的路径(:resource)
+
+```js
+  app.use('/admin/api/rest/:resource', router)
+```
+
+2.并且在引入Router中设置 mergeParams: true 的选项 ,方便吧app.use中匹配的params参数传递到路由中
+
+```js
+  const router = express.Router({
+    mergeParams: true, //吧app.use中的params参数传递到路由中 不然拿不到路由
+  })
+```
+
+3.在app.use中添加中间件,根据请求参数去获取不同的Model名称,然后挂载到req中
+
+```js
+  app.use('/admin/api/rest/:resource', (req, res, next) => {
+    const modelName = inflection.classify(req.params.resource) //使用inflection转换名称
+    const Model = require(`../../models/${modelName}`)
+    req.Model = Model;
+    next();
+  }, router)
+```
+
+4.在路由中使用req.Model去查询(增删改查)参数
