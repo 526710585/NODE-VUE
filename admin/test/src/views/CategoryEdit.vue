@@ -30,8 +30,16 @@ export default {
       type: String
     }
   },
+  watch:{
+    id(newValue,oldValue){
+      if(newValue==undefined){
+        this.model = {};
+      }
+    }
+  },
   created() {
-    this.id && this.findCategory();
+    this.id&&this.findCategory();
+
     this.getParents();
   },
   methods: {

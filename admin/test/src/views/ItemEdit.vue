@@ -32,6 +32,13 @@ export default {
       uploadUrl:uploadUrl
     };
   },
+    watch:{
+    id(newValue,oldValue){
+      if(newValue==undefined){
+        this.model = {};
+      }
+    }
+  },
   props: {
     id: {
       type: String
