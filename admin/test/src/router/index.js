@@ -13,6 +13,9 @@ import CategoryList from '../views/CategoryList.vue'
 import ItemEdit from '../views/ItemEdit.vue'
 import ItemList from '../views/ItemList.vue'
 
+import HeroEdit from '../views/HeroEdit.vue'
+import HeroList from '../views/HeroList.vue'
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -32,6 +35,7 @@ const routes = [{
     component: CategoryEdit,
     props: true
   },
+
   {
     path: '/items/create',
     component: ItemEdit
@@ -43,6 +47,20 @@ const routes = [{
   {
     path: '/items/edit/:id',
     component: ItemEdit,
+    props: true
+  }
+  ,
+  {
+    path: '/heroes/create',
+    component: HeroEdit
+  },
+  {
+    path: '/heroes/list',
+    component: HeroList
+  },
+  {
+    path: '/heroes/edit/:id',
+    component: HeroEdit,
     props: true
   }
 ]
