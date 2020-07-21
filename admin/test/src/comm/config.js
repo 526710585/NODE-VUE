@@ -3,5 +3,7 @@ export const host = 'http://localhost:3001' + '/admin/api'
 export const categoryUrl = host + '/rest/categories'
 //物品
 export const itemUrl = host + '/rest/items'
+//英雄
+export const heroUrl = host + '/rest/heroes'
 //上传接口
 export const uploadUrl = host + '/upload'

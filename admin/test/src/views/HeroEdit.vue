@@ -1,6 +1,6 @@
 <template>
   <div>
-    <H1>{{id?'编辑':'新建'}}物品</H1>
+    <H1>{{id?'编辑':'新建'}}英雄</H1>
     <el-form label-width="120px" @submit.native.prevent="save">
 
       <el-form-item label="名称">
@@ -11,14 +11,14 @@
         <el-input v-model="model.title"></el-input>
       </el-form-item>
 
-      <el-form-item label="分类">
-        <el-select v-model="model.classify" placeholder="请选择">
-          <el-option v-for="item in classify" :key="item._id" :label="item.name" :value="item._id"></el-option>
+      <el-form-item label="分类" >
+        <el-select v-model="model.categories" placeholder="请选择" multiple>
+          <el-option v-for="item in categories" :key="item._id" :label="item.name" :value="item._id"></el-option>
         </el-select>
       </el-form-item>
 
 
-       <el-form-item label="图片">
+       <el-form-item label="头像">
         <el-upload
           class="avatar-uploader"
           :action="uploadUrl"
@@ -29,7 +29,38 @@
         </el-upload>
       </el-form-item>
 
+      <el-form-item label="难度">
+         <!-- <span class="demonstration">默认不区分颜色</span> -->
+        <el-rate v-model="model.scores.difficulty" :max='10' ></el-rate>
+      </el-form-item>
 
+      <el-form-item label="技能">
+         <!-- <span class="demonstration">默认不区分颜色</span> -->
+        <el-rate v-model="model.scores.skill" :max='10' ></el-rate>
+      </el-form-item>
+      <el-form-item label="攻击">
+         <!-- <span class="demonstration">默认不区分颜色</span> -->
+        <el-rate v-model="model.scores.attack" :max='10' ></el-rate>
+      </el-form-item>
+      <el-form-item label="生存">
+         <!-- <span class="demonstration">默认不区分颜色</span> -->
+        <el-rate v-model="model.scores.existence" :max='10' ></el-rate>
+      </el-form-item>
+
+
+      <el-form-item label="顺风出装" >
+        <el-select v-model="model.equipment.winning" placeholder="请选择" multiple>
+          <el-option v-for="item in items" :key="item._id" :label="item.name" :value="item._id"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="逆风出装" >
+        <el-select v-model="model.equipment.losing" placeholder="请选择" multiple>
+          <el-option v-for="item in items" :key="item._id" :label="item.name" :value="item._id"></el-option>
+        </el-select>
+      </el-form-item>
+
+  
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
       </el-form-item>
@@ -37,12 +68,25 @@
   </div>
 </template>
 <script>
-import { itemUrl,uploadUrl } from "../comm/config";
+import { heroUrl,uploadUrl,categoryUrl,itemUrl } from "../comm/config";
 export default {
   data() {
     return {
-      model: {},
-      uploadUrl:uploadUrl
+      model: {
+        scores:{
+          difficulty:0,
+          skill:0,
+          attack:0,
+          existence:0,
+        },
+        equipment:{
+          winning:[],
+          losing:[]
+        }
+      },
+      uploadUrl:uploadUrl,
+      categories:[],//英雄分类
+      items:[],//物品分类
     };
   },
     watch:{
@@ -58,11 +102,28 @@ export default {
     }
   },
   created() {
+    this.findHeroCategories();
+    this.findItems();
     console.log(uploadUrl);
     this.id && this.findItem();
     // this.getParents();
   },
   methods: {
+    async findHeroCategories(){
+      var res = await this.$get(categoryUrl);
+      // console.log(res);
+      this.categories = res.data.filter((item)=>{
+        return item.parent&&item.parent.name=='hero'
+      })
+    },
+    async findItems(){
+      var res = await this.$get(itemUrl);
+      // console.log(res);
+      // this.categories = res.data.filter((item)=>{
+      //   return item.parent&&item.parent.name=='hero'
+      // })
+      this.items = res.data;
+    },
     afterUpload(res){
       console.log(res);
       this.$set(this.model,'icon',res.url)
@@ -75,13 +136,13 @@ export default {
       }
     },
     async findItem() {
-      var res = await this.$get(`${itemUrl}/${this.id}`);
+      var res = await this.$get(`${heroUrl}/${this.id}`);
       this.model = res.data;
     },
     async editItem() {
-      var res = await this.$put(`${itemUrl}/${this.id}`, this.model);
+      var res = await this.$put(`${heroUrl}/${this.id}`, this.model);
       if (res.result == 0) {
-        this.$router.push("/items/list");
+        this.$router.push("/heroes/list");
         this.$message({
           type: "success",
           message: "修改成功"
@@ -94,8 +155,8 @@ export default {
       }
     },
     async createItem() {
-      var res = await this.$post(itemUrl, this.model);
-      this.$router.push("/items/list");
+      var res = await this.$post(heroUrl, this.model);
+      this.$router.push("/heroes/list");
       this.$message({
         type: "success",
         message: "保存成功"
@@ -119,14 +180,20 @@ export default {
   .avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
     text-align: center;
   }
   .avatar {
-    width: 178px;
-    height: 178px;
+    width: 120px;
+    height: 120px;
     display: block;
+  }
+  .el-form .el-form-item .el-rate{
+    line-height: 40px;
+  }
+  .el-form .el-form-item .el-rate .el-rate__item{
+    font-size:medium;
   }
 </style>

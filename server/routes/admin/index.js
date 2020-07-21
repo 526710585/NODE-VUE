@@ -21,6 +21,8 @@ module.exports = app => {
     const queryOptions = {}
     if (ModelName === 'Category') { //匹配只有查询Category模型时 才填充parent选项
       queryOptions.populate = 'parent'
+    }else if (ModelName === 'Hero'){
+      // queryOptions.populate = 'categories'
     }
     //populate 关联查询:不仅仅是要parent这个参数的id 而是要查出整个数据作为一个对象
     const model = await req.Model.find().setOptions(queryOptions).limit(10)

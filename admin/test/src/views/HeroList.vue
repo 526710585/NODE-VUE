@@ -1,7 +1,7 @@
 <template>
   <div>
     <H1>物品列表</H1>
-    <el-table :data="items" style="width: 100%">
+    <el-table :data="heroes" style="width: 100%">
       <el-table-column prop="_id" label="ID" width="220"></el-table-column>
       <el-table-column prop="name" label="物品名称"></el-table-column>
       <el-table-column  label="图片">
@@ -14,7 +14,7 @@
           <el-button
             type="primary"
             size="small"
-            @click="$router.push(`/items/edit/${scope.row._id}`)"
+            @click="$router.push(`/heroes/edit/${scope.row._id}`)"
           >编辑</el-button>
           <el-button type="danger" size="small" @click="deleteIt(scope.row)">删除</el-button>
         </template>
@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import { itemUrl } from "../comm/config";
+import { heroUrl } from "../comm/config";
 export default {
   data() {
     return {
-      items: []
+      heroes: []
     };
   },
   created() {
@@ -36,9 +36,9 @@ export default {
   },
   methods: {
     async getData() {
-      var res = await this.$get(itemUrl);
+      var res = await this.$get(heroUrl);
       console.log(res);
-      this.items = res.data;
+      this.heroes = res.data;
     },
     deleteIt(data) {
       this.$confirm(`确认是否删除物品 "${data.name}"`, "提示", {
@@ -51,7 +51,7 @@ export default {
       });
     },
     async delectCategory(id) {
-      let res = await this.$delete(`${itemUrl}/${id}`);
+      let res = await this.$delete(`${heroUrl}/${id}`);
       if (res.result == 0) {
         this.getData();
         this.$message({
