@@ -5,5 +5,8 @@ export const categoryUrl = host + '/rest/categories'
 export const itemUrl = host + '/rest/items'
 //英雄
 export const heroUrl = host + '/rest/heroes'
+//文章
+export const articleUrl = host + '/rest/articles'
+
 //上传接口
 export const uploadUrl = host + '/upload'

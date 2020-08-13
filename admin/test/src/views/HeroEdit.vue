@@ -113,6 +113,10 @@
               <el-form-item label="使用技巧"  >
                 <el-input type="textarea" :rows="5" v-model="item.description"></el-input>
               </el-form-item>
+              <el-form-item label=""  >
+                
+                <el-button  type='danger' @click="model.skills.splice(index,1)">删除</el-button>
+              </el-form-item>
               
             </el-col>
 

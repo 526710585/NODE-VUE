@@ -23,6 +23,8 @@ module.exports = app => {
       queryOptions.populate = 'parent'
     }else if (ModelName === 'Hero'){
       // queryOptions.populate = 'categories'
+    }else if(ModelName === 'Article'){
+      queryOptions.populate = 'categories'
     }
     //populate 关联查询:不仅仅是要parent这个参数的id 而是要查出整个数据作为一个对象
     const model = await req.Model.find().setOptions(queryOptions).limit(10)
