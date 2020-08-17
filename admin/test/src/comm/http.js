@@ -110,3 +110,20 @@ export function deleteFun(url, data = {}) {
     })
   })
 }
+
+export function upload(url, data = {}) {
+  return new Promise((resolve, reject) => {
+    axios({
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+      method: 'post',
+      url,
+      data
+    }).then(res => {
+      resolve(res.data)
+    }).catch(err => {
+      reject(err);
+    })
+  })
+}

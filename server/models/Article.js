@@ -7,7 +7,10 @@ const schema = new mongoose.Schema({
   categories:[{
     type: mongoose.SchemaTypes.ObjectId,
     ref:'Category'
-  }]
+  }],
+  content:{
+    type:String
+  }
 })
 
 module.exports = mongoose.model('Article',schema)
