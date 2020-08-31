@@ -19,6 +19,9 @@ import HeroList from '../views/HeroList.vue'
 import ArticleEdit from '../views/ArticleEdit.vue'
 import ArticleList from '../views/ArticleList.vue'
 
+import AdminUsersEdit from '../views/AdminUsersEdit.vue'
+import AdminUsersList from '../views/AdminUsersList.vue'
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -77,6 +80,19 @@ const routes = [{
   {
     path: '/articles/edit/:id',
     component: ArticleEdit,
+    props: true
+  },
+  {
+    path: '/admin_users/create',
+    component: AdminUsersEdit
+  },
+  {
+    path: '/admin_users/list',
+    component: AdminUsersList
+  },
+  {
+    path: '/admin_users/edit/:id',
+    component: AdminUsersEdit,
     props: true
   }
 ]

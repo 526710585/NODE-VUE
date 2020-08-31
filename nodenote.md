@@ -175,3 +175,29 @@ populate({
 ```
 
 4.在路由中使用req.Model去查询(增删改查)参数
+
+
+
+## 9.密码的保存
+
+1.Schaema中使用set修改数据库储存的密码
+
+2.安装bcrypt散列密码储存
+
+3.select:false 默认不让查出
+
+```js
+const schema = new mongoose.Schema({
+  userName:{
+    type:String
+  },
+  passWord:{
+    type:String,
+    select:false,
+    set(val){
+      return bcrypt.hashSync(val,10)
+    }
+  }
+})
+```
+

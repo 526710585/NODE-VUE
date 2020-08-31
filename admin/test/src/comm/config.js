@@ -7,6 +7,8 @@ export const itemUrl = host + '/rest/items'
 export const heroUrl = host + '/rest/heroes'
 //文章
 export const articleUrl = host + '/rest/articles'
+//管理员
+export const adminUsersUrl = host + '/rest/adminUsers'
 
 //上传接口
 export const uploadUrl = host + '/upload'
