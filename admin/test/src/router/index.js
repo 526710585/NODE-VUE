@@ -22,9 +22,18 @@ import ArticleList from '../views/ArticleList.vue'
 import AdminUsersEdit from '../views/AdminUsersEdit.vue'
 import AdminUsersList from '../views/AdminUsersList.vue'
 
+import Login from '../views/Login.vue'
+
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+  {
+    path:'/login',
+    name:'Login',
+    component:Login,
+    
+  },
+  {
   path: '/',
   name: 'Main',
   component: Main,

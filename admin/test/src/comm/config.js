@@ -9,6 +9,8 @@ export const heroUrl = host + '/rest/heroes'
 export const articleUrl = host + '/rest/articles'
 //管理员
 export const adminUsersUrl = host + '/rest/adminUsers'
+//登陆
+export const loginUrl = host + '/login'
 
 //上传接口
 export const uploadUrl = host + '/upload'

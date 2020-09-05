@@ -10,7 +10,6 @@
         <el-upload
           class="avatar-uploader"
           :action="uploadUrl"
-
           :show-file-list="false"
           :on-success="afterUpload">
           <img v-if="model.icon" :src="model.icon" class="avatar">
@@ -50,6 +49,9 @@ export default {
     // this.getParents();
   },
   methods: {
+    upload(event, file, fileList){
+      console.log(event,file);
+    },
     afterUpload(res){
       console.log(res);
       this.$set(this.model,'icon',res.url)

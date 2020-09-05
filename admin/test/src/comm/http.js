@@ -1,4 +1,6 @@
 import axios from "axios";
+import Vue from 'vue'
+import loginUrl from '../comm/config'
 
 // axios.defaults.timeout = 50000;
 // axios.defaults.withCredentials = true;
@@ -7,14 +9,11 @@ import axios from "axios";
 //http request 拦截器
 axios.interceptors.request.use(
   config => {
-    // config.headers = {
-    //   "Content-Type": 'application/x-www-form-urlencoded'
-    //   // "Content-Type": 'application/json'
-    //   // "Content-Type": "multipart/form-data"
-    // };
+    config.headers.Authorization = 'Bearer ' + localStorage.token||'' 
     return config;
   },
   error => {
+
     return Promise.reject(error);
   }
 );
@@ -22,21 +21,14 @@ axios.interceptors.request.use(
 //http response 拦截器
 axios.interceptors.response.use(
   response => {
-    if (response.data.errCode == 2) {
-      router.push({
-        path: "/",
-        querry: {
-          redirect: router.currentRoute.fullPath
-        } //从哪个页面跳转
-      });
-    }
-    //储存token
-    if (response.config.url.indexOf('/match/') != '-1' && response.headers.msdktoken) {
-      localStorage.setItem('msdktoken', response.headers.msdktoken);
-    }
     return response;
   },
   error => {
+    //拦截错误相应
+    Vue.prototype.$message({
+      message: error.response.data.msg,
+      type: 'error'
+    })
     return Promise.reject(error);
   }
 );
