@@ -29,6 +29,7 @@ export default {
       console.log(this.model);
       var res = await this.$post(loginUrl,this.model);
       localStorage.token = res.token;
+      this.$store.commit("saveUserName",this.model.userName)
       this.$router.push('/')
       this.$message({
         type:'success',

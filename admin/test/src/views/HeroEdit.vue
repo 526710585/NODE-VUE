@@ -28,6 +28,7 @@
 
             <el-form-item label="头像">
               <el-upload
+                :headers="getAuthHeaders()"
                 class="avatar-uploader"
                 :action="uploadUrl"
                 :show-file-list="false"
@@ -101,6 +102,7 @@
 
               <el-form-item label="头像" >
                 <el-upload
+                  :headers="getAuthHeaders()"
                   class="avatar-uploader"
                   :action="uploadUrl"
                   :show-file-list="false"
@@ -155,6 +157,7 @@ export default {
       categories: [], //英雄分类
       items: [], //物品分类
       activeName: "skill",
+      token:localStorage.token||''
     };
   },
   watch: {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <H1>{{id?'编辑':'新建'}}物品</H1>
+    <H1>{{id?'编辑':'新建'}}管理员</H1>
     <el-form label-width="120px" @submit.native.prevent="save">
 
       <el-form-item label="账号">
@@ -81,24 +81,7 @@ export default {
 };
 </script>
 <style>
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 5rem;
-    height: 5rem;
-    line-height: 5rem;
-    text-align: center;
-  }
+
   .avatar {
     width: 5rem;
     height: 5rem;

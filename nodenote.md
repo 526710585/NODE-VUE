@@ -201,3 +201,36 @@ const schema = new mongoose.Schema({
 })
 ```
 
+
+
+## 10.密码的效验以及token
+
+1.bcrypt 用于散列密码
+
+```js
+bcrypt.hashSync(val,10) //散列密码
+bcrypt.compareSync(val,hashVal) //对比密码
+```
+
+2.jwt用于生成token(jsonwebtoken)
+
+```js
+const token = jwt.sign(obj,secret)//使用 数据 和 secret 生成token
+const obj = jwt.verify(token,secret)//使用token 和 secret 生成数据
+
+secret应该存到环境变量
+```
+
+
+
+## 11.http-assert 用于断言抛出错误  app.use 四个参数用于接受全局的错误
+
+```js
+assert(data,402,message)//判断data是否为真 抛出402的错误 带上msg
+
+app.use(err,req,res,next){
+    //返回错误信息
+	res.status(err.statusCode||500).send({msg:err.message})
+}
+```
+

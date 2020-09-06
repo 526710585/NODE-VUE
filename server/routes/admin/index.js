@@ -67,7 +67,7 @@ module.exports = app => {
   //文件上传
   const multer = require('multer')//引入处理上传文件的插件
   const upload = multer({dest:__dirname+'/../../uploads'})//这个中间件使用multer处理 上传后的路径
-  app.use('/admin/api/upload',upload.single('file')/**single 代表单文件 */,async (req,res)=>{
+  app.use('/admin/api/upload',authMiddleware(),upload.single('file')/**single 代表单文件 */,async (req,res)=>{
     const file = req.file
     file.url = `http://localhost:3001/uploads/${file.filename}`
     res.send(file)

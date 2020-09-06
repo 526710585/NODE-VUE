@@ -1,7 +1,7 @@
 <template>
   <el-container style="height: 100vh; border: 1px solid #eee">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-      <el-menu router :default-openeds="['3']" unique-opened  :default-active="routerName">
+      <el-menu router unique-opened  :default-active="routerName">
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-message"></i>内容管理
@@ -50,6 +50,15 @@
     </el-aside>
 
     <el-container>
+      <el-header style="text-align: right; font-size: 12px">
+      <el-dropdown>
+        <i class="el-icon-setting" style="margin-right: 15px"></i>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.native="loginOut">退出登录</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <span>用户名{{$store.state.userName}}</span>
+    </el-header>
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -87,5 +96,28 @@ export default {
       tableData: Array(20).fill(item),
     };
   },
+  methods:{
+    loginOut(){
+      this.$confirm('此操作将退出登录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '已注销!'
+          });
+          localStorage.clear();
+          this.$router.push('/login')
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消退出'
+          });          
+        });
+
+
+    }
+  }
 };
 </script>
